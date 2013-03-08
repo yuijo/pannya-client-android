@@ -1,0 +1,33 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# cache files
+.metadata
+*.swp
+
+# work files
+classes/
+gen/
+bin/
+obj/
+out/
+proguard/
+tmp/
+
+# local settings
+*.ipr
+*.iws
+.idea/
+.settings
+local.properties
+*.keystore
+
+# 
+!.git*
