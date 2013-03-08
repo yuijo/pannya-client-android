@@ -1,6 +1,6 @@
 # pyanna-client-android
 
-TODO: Write a gem description
+TODO: Write a application description
 
 ## Usage
 
