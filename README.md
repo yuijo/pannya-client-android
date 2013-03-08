@@ -1,6 +1,6 @@
 # pyanna-client-android
 
-TODO: Write a application description
+TODO: Write an application description
 
 ## Usage
 
