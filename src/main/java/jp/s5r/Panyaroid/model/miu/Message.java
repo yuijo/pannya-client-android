@@ -9,7 +9,7 @@ public class Message {
   private Network network;
 
   @JsonKey
-  private Type type;
+  private String type;
 
   @JsonKey
   private Content content;
@@ -34,10 +34,14 @@ public class Message {
   }
 
   public Type getType() {
-    return type;
+    return Type.valueOf(type.toUpperCase());
   }
 
   public void setType(final Type type) {
+    setType(type.toString());
+  }
+
+  public void setType(final String type) {
     this.type = type;
   }
 
