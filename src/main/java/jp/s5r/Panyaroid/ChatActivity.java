@@ -26,15 +26,11 @@ public class ChatActivity extends AbstractBaseActivity {
 
     ListView listMessage = (ListView) findViewById(R.id.chat_list_message);
     ArrayList<Message> messages = new ArrayList<Message>();
-    messages.add(new Message("chiwa", "おかえり"));
-    messages.add(new Message("masuzu", "さあ出掛けよう"));
-    messages.add(new Message("chiwa", "絆が大事"));
-    messages.add(new Message("masuzu", "恋人が大事"));
-    messages.add(new Message("chiwa", "この痛み、君のせい?"));
-    messages.add(new Message("masuzu", "胸のときめき、嘘のつもり"));
-    messages.add(new Message("chiwa", "ねえもっと、いっしょしよ?"));
-    messages.add(new Message("masuzu", "ダメ、私だけ。"));
-    messages.add(new Message("chiwa", "油断もスキもない!"));
+
+//    String jsonContent = "{\"network\":{\"name\":\"pigchat\"},\"type\":\"text\",\"content\":{\"room\":{\"name\":\"#itokanae\"},\"user\":{\"name\":\"mashiro\"},\"text\":\"RPGツクールやってたころに\"}}";
+//
+//    messages.add(Message)
+
     listMessage.setAdapter(new MessageAdapter(messages));
   }
 

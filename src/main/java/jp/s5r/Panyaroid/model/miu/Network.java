@@ -5,19 +5,22 @@ import net.vvakame.util.jsonpullparser.annotation.JsonModel;
 
 @JsonModel
 public class Network {
-  @JsonKey(value = "name")
-  private String mName;
+  @JsonKey
+  private String name;
+
+  public Network() {
+  }
 
   public Network(final String name) {
     setName(name);
   }
 
   public String getName() {
-    return mName;
+    return name;
   }
 
   public void setName(final String name) {
-    mName = name;
+    this.name = name;
   }
 
   @Override

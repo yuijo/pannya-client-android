@@ -5,14 +5,17 @@ import net.vvakame.util.jsonpullparser.annotation.JsonModel;
 
 @JsonModel
 public class Content {
-  @JsonKey(value = "room")
-  private Room mRoom;
+  @JsonKey
+  private Room room;
 
-  @JsonKey(value = "user")
-  private User mUser;
+  @JsonKey
+  private User user;
 
-  @JsonKey(value = "text")
-  private String mText;
+  @JsonKey
+  private String text;
+
+  public Content() {
+  }
 
   public Content(final Room room, final User user, final String text) {
     setRoom(room);
@@ -21,27 +24,27 @@ public class Content {
   }
 
   public String getText() {
-    return mText;
+    return text;
   }
 
   public void setText(final String text) {
-    mText = text;
+    this.text = text;
   }
 
   public User getUser() {
-    return mUser;
+    return user;
   }
 
   public void setUser(final User user) {
-    mUser = user;
+    this.user = user;
   }
 
   public Room getRoom() {
-    return mRoom;
+    return room;
   }
 
   public void setRoom(final Room room) {
-    mRoom = room;
+    this.room = room;
   }
 
   @Override

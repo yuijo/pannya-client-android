@@ -5,14 +5,17 @@ import net.vvakame.util.jsonpullparser.annotation.JsonModel;
 
 @JsonModel
 public class Message {
-  @JsonKey(value = "network")
-  private Network mNetwork;
+  @JsonKey
+  private Network network;
 
-  @JsonKey(value = "type")
-  private String mType;
+  @JsonKey
+  private Type type;
 
-  @JsonKey(value = "content")
-  private Content mContent;
+  @JsonKey
+  private Content content;
+
+  public Message() {
+  }
 
   public Message(final Network network,
                  final Type type,
@@ -23,27 +26,27 @@ public class Message {
   }
 
   public Network getNetwork() {
-    return mNetwork;
+    return network;
   }
 
   public void setNetwork(final Network network) {
-    mNetwork = network;
+    this.network = network;
   }
 
   public Type getType() {
-    return Type.valueOf(mType.toUpperCase());
+    return type;
   }
 
   public void setType(final Type type) {
-    mType = type.toString();
+    this.type = type;
   }
 
   public Content getContent() {
-    return mContent;
+    return content;
   }
 
   public void setContent(final Content content) {
-    mContent = content;
+    this.content = content;
   }
 
   @Override
