@@ -10,10 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import jp.s5r.client.pannya.models.Content;
 import jp.s5r.client.pannya.models.Message;
-import jp.s5r.client.pannya.models.MessageGenerated;
-import net.vvakame.util.jsonpullparser.JsonFormatException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,19 +26,6 @@ public class ChatActivity extends AbstractBaseActivity {
 
     ListView listMessage = (ListView) findViewById(R.id.chat_list_message);
     ArrayList<Message> messages = new ArrayList<Message>();
-
-    String jsonContent = "{\"network\":{\"name\":\"pigchat\"},\"type\":\"text\",\"content\":{\"room\":{\"name\":\"#itokanae\"},\"user\":{\"name\":\"mashiro\"},\"text\":\"RPGツクールやってたころに\"}}";
-    Message message = null;
-    try {
-      message = MessageGenerated.get(jsonContent);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (JsonFormatException e) {
-      e.printStackTrace();
-    }
-    if (message != null) {
-      messages.add(message);
-    }
     listMessage.setAdapter(new MessageAdapter(messages));
   }
 
