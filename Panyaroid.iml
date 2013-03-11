@@ -60,6 +60,7 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:8.1.9.v20130131" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:8.1.9.v20130131" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:8.1.9.v20130131" level="project" />
+    <orderEntry type="library" name="Maven: net.vvakame:jsonpullparser-core:1.6.1" level="project" />
     <orderEntry type="inheritedJdk" />
   </component>
 </module>

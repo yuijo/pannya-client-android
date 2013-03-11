@@ -22,6 +22,11 @@
       <artifactId>jetty-websocket</artifactId>
       <version>8.1.9.v20130131</version>
     </dependency>
+    <dependency>
+      <groupId>net.vvakame</groupId>
+      <artifactId>jsonpullparser-core</artifactId>
+      <version>1.6.1</version>
+    </dependency>
   </dependencies>
 
   <build>
