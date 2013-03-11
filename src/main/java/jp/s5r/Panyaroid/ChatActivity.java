@@ -8,6 +8,8 @@ import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import jp.s5r.Panyaroid.model.miu.Content;
+import jp.s5r.Panyaroid.model.miu.Message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,24 +36,6 @@ public class ChatActivity extends AbstractBaseActivity {
     messages.add(new Message("masuzu", "ダメ、私だけ。"));
     messages.add(new Message("chiwa", "油断もスキもない!"));
     listMessage.setAdapter(new MessageAdapter(messages));
-  }
-
-  private static class Message {
-    private String mName;
-    private String mMessage;
-
-    public Message(final String name, final String message) {
-      mName = name;
-      mMessage = message;
-    }
-
-    public String getName() {
-      return mName;
-    }
-
-    public String getMessage() {
-      return mMessage;
-    }
   }
 
   private class MessageAdapter extends BaseAdapter {
@@ -87,11 +71,12 @@ public class ChatActivity extends AbstractBaseActivity {
       }
 
       Message message = getItem(i);
+      Content content = message.getContent();
 
       TextView name = (TextView) view.findViewById(R.id.chat_message_name);
-      name.setText(message.getName());
+      name.setText(content.getUser().getName());
       TextView body = (TextView) view.findViewById(R.id.chat_message_body);
-      body.setText(message.getMessage());
+      body.setText(content.getText());
 
       return view;
     }

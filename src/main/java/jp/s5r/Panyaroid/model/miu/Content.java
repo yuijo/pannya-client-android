@@ -43,4 +43,11 @@ public class Content {
   public void setRoom(final Room room) {
     mRoom = room;
   }
+
+  @Override
+  public String toString() {
+    return "room: " + getRoom().toString()
+        + ", user: "+ getUser().toString()
+        + ", text: " + getText();
+  }
 }

@@ -19,4 +19,9 @@ public class Network {
   public void setName(final String name) {
     mName = name;
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

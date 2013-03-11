@@ -45,4 +45,11 @@ public class Message {
   public void setContent(final Content content) {
     mContent = content;
   }
+
+  @Override
+  public String toString() {
+    return "network: " + getNetwork().toString()
+        + ", type: " + getType().toString()
+        + ", content" + getContent().toString();
+  }
 }
