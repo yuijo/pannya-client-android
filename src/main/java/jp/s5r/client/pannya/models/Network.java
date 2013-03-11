@@ -1,17 +1,17 @@
-package jp.s5r.Panyaroid.model.miu;
+package jp.s5r.client.pannya.models;
 
 import net.vvakame.util.jsonpullparser.annotation.JsonKey;
 import net.vvakame.util.jsonpullparser.annotation.JsonModel;
 
 @JsonModel
-public class User {
+public class Network {
   @JsonKey
   private String name;
 
-  public User() {
+  public Network() {
   }
 
-  public User(final String name) {
+  public Network(final String name) {
     setName(name);
   }
 

@@ -1,4 +1,4 @@
-package jp.s5r.Panyaroid;
+package jp.s5r.client.pannya;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,9 +8,9 @@ import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import jp.s5r.Panyaroid.model.miu.Content;
-import jp.s5r.Panyaroid.model.miu.Message;
-import jp.s5r.Panyaroid.model.miu.MessageGenerated;
+import jp.s5r.client.pannya.models.Content;
+import jp.s5r.client.pannya.models.Message;
+import jp.s5r.client.pannya.models.MessageGenerated;
 import net.vvakame.util.jsonpullparser.JsonFormatException;
 
 import java.io.IOException;

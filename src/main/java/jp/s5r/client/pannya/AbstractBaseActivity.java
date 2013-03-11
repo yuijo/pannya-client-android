@@ -1,4 +1,4 @@
-package jp.s5r.Panyaroid;
+package jp.s5r.client.pannya;
 
 import android.app.Activity;
 import android.os.Bundle;
