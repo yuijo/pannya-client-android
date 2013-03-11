@@ -40,7 +40,7 @@ public class ChatActivity extends AbstractBaseActivity {
     private String mName;
     private String mMessage;
 
-    public Message(String name, String message) {
+    public Message(final String name, final String message) {
       mName = name;
       mMessage = message;
     }
@@ -57,7 +57,7 @@ public class ChatActivity extends AbstractBaseActivity {
   private class MessageAdapter extends BaseAdapter {
     private List<Message> mMessages;
 
-    public MessageAdapter(List<Message> messages) {
+    public MessageAdapter(final List<Message> messages) {
       mMessages = messages;
     }
 
