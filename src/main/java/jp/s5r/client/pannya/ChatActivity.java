@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import jp.s5r.client.pannya.models.Content;
 import jp.s5r.client.pannya.models.Message;
+import jp.s5r.client.pannya.models.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,25 @@ public class ChatActivity
     mAq = new AQuery(this);
 
     ArrayList<Message> messages = new ArrayList<Message>();
+    messages.add(new Message.Builder()
+                     .network("StyleCube")
+                     .type(Type.TEXT)
+                     .content(new Content.Builder()
+                                  .room("#ShinyBlue")
+                                  .user("yuiogura")
+                                  .text("今こそ Step in! Shiny Blue!")
+                                  .build())
+                     .build());
+    messages.add(new Message.Builder()
+                     .network("StyleCube")
+                     .type(Type.TEXT)
+                     .content(new Content.Builder()
+                                  .room("#ShinyBlue")
+                                  .user("yuiogura")
+                                  .text("旅立つ鐘鳴らせ!")
+                                  .build())
+                     .build());
+
     mAq.id(R.id.chat_send_button).clicked(this, "sendButtonClicked");
     mAq.id(R.id.chat_list_message).adapter(new MessageAdapter(messages));
     mAq.id(R.id.chat_input_message)
@@ -121,10 +141,10 @@ public class ChatActivity
       Message message = getItem(i);
       Content content = message.getContent();
 
-      TextView name = (TextView) view.findViewById(R.id.chat_message_name);
-      name.setText(content.getUser().getName());
-      TextView body = (TextView) view.findViewById(R.id.chat_message_body);
-      body.setText(content.getText());
+      AQuery aq = new AQuery(view);
+      aq.id(R.id.chat_message_name).text(content.getUser().getName());
+      aq.id(R.id.chat_message_body).text(content.getText());
+      aq.id(R.id.chat_message_icon).image("https://si0.twimg.com/profile_images/3281723874/24d11457e1fbcebd96b9391d199ba207.png");
 
       return view;
     }
