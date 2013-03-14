@@ -59,4 +59,32 @@ public class Message {
         + ", type: " + getType().toString()
         + ", content" + getContent().toString();
   }
+
+  public static class Builder {
+    private Network mNetwork;
+    private Type mType;
+    private Content mContent;
+
+    public Builder() {
+    }
+
+    public Builder network(String name) {
+      mNetwork = new Network(name);
+      return this;
+    }
+
+    public Builder type(Type type) {
+      mType = type;
+      return this;
+    }
+
+    public Builder content(Content content) {
+      mContent = content;
+      return this;
+    }
+
+    public Message build() {
+      return new Message(mNetwork, mType, mContent);
+    }
+  }
 }

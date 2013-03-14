@@ -53,4 +53,32 @@ public class Content {
         + ", user: "+ getUser().toString()
         + ", text: " + getText();
   }
+
+  public static class Builder {
+    private Room mRoom;
+    private User mUser;
+    private String mText;
+
+    public Builder() {
+    }
+
+    public Builder room(String name) {
+      mRoom = new Room(name);
+      return this;
+    }
+
+    public Builder user(String name) {
+      mUser = new User(name);
+      return this;
+    }
+
+    public Builder text(String text) {
+      mText = text;
+      return this;
+    }
+
+    public Content build() {
+      return new Content(mRoom, mUser, mText);
+    }
+  }
 }
