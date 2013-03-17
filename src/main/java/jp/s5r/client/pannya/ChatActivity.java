@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,10 +30,12 @@ import java.util.List;
 /**
  * チャット表示部 Activity.
  */
-public class ChatActivity extends AbstractBaseActivity
-    implements ActionBar.TabListener, TextView.OnEditorActionListener {
+public class ChatActivity
+    extends AbstractBaseActivity
+    implements TextView.OnEditorActionListener,
+               ActionBar.OnNavigationListener {
 
-  private int mCurrentSelectedTabPosition = -1;
+  private int mSelectedItemPosition = -1;
   private Fragment mFragment;
   private AQuery mAq;
 
@@ -43,20 +46,17 @@ public class ChatActivity extends AbstractBaseActivity
     setContentView(R.layout.chat);
 
     final ActionBar actionBar = getActionBar();
-    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        this,
+        android.R.layout.simple_list_item_1,
+        new String[] {
+            "StyleCube", "KING RECORDS", "PonyCanyon",
+            "Lants",
+        });
+    actionBar.setListNavigationCallbacks(adapter, this);
 
-    actionBar.addTab(actionBar.newTab()
-                              .setText("StyleCube")
-                              .setTabListener(this));
-    actionBar.addTab(actionBar.newTab()
-                              .setText("KING RECORDS")
-                              .setTabListener(this));
-    actionBar.addTab(actionBar.newTab()
-                              .setText("PonyCanyon")
-                              .setTabListener(this));
-    actionBar.addTab(actionBar.newTab()
-                              .setText("Lantis")
-                              .setTabListener(this));
+    actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
     mAq = new AQuery(this);
     mAq.id(R.id.chat_send_button).clicked(this, "sendButtonClicked");
@@ -109,30 +109,20 @@ public class ChatActivity extends AbstractBaseActivity
     mAq.getEditText().setText("");
   }
 
-  // ----------------------------
-  //  タブの管理
-  // ----------------------------
-
   @Override
-  public void onTabSelected(final ActionBar.Tab tab,
-                            final FragmentTransaction fragmentTransaction) {
-    int tabPosition = tab.getPosition();
-    if (mCurrentSelectedTabPosition == tabPosition) {
-      return;
+  public boolean onNavigationItemSelected(final int itemPosition,
+                                          final long itemId) {
+    if (mSelectedItemPosition == itemPosition) {
+      return false;
     }
-    mCurrentSelectedTabPosition = tabPosition;
-    mFragment = Fragment.instantiate(this, ChatFragment.class.getName());
-    fragmentTransaction.add(R.id.chat_list_container, mFragment);
-  }
+    mSelectedItemPosition = itemPosition;
 
-  @Override
-  public void onTabUnselected(final ActionBar.Tab tab,
-                              final FragmentTransaction fragmentTransaction) {
-    fragmentTransaction.remove(mFragment);
-  }
+    mFragment = new ChatFragment();
+    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+    transaction.replace(R.id.chat_list_container, mFragment);
+    transaction.addToBackStack(null);
+    transaction.commit();
 
-  @Override
-  public void onTabReselected(final ActionBar.Tab tab,
-                              final FragmentTransaction fragmentTransaction) {
+    return false;
   }
 }

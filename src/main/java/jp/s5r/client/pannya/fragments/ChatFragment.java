@@ -61,7 +61,6 @@ public class ChatFragment extends Fragment {
     return view;
   }
 
-
   private class MessageAdapter extends BaseAdapter {
     private List<Message> mMessages;
 
