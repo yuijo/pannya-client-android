@@ -1,8 +1,14 @@
 package jp.s5r.client.pannya;
 
+import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -12,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import jp.s5r.client.pannya.fragments.ChatFragment;
 import jp.s5r.client.pannya.models.Content;
 import jp.s5r.client.pannya.models.Message;
 import jp.s5r.client.pannya.models.Type;
@@ -22,9 +29,11 @@ import java.util.List;
 /**
  * チャット表示部 Activity.
  */
-public class ChatActivity
-    extends AbstractBaseActivity
-    implements TextView.OnEditorActionListener {
+public class ChatActivity extends AbstractBaseActivity
+    implements ActionBar.TabListener, TextView.OnEditorActionListener {
+
+  private int mCurrentSelectedTabPosition = -1;
+  private Fragment mFragment;
   private AQuery mAq;
 
   @Override
@@ -33,30 +42,24 @@ public class ChatActivity
     getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
     setContentView(R.layout.chat);
 
+    final ActionBar actionBar = getActionBar();
+    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+    actionBar.addTab(actionBar.newTab()
+                              .setText("StyleCube")
+                              .setTabListener(this));
+    actionBar.addTab(actionBar.newTab()
+                              .setText("KING RECORDS")
+                              .setTabListener(this));
+    actionBar.addTab(actionBar.newTab()
+                              .setText("PonyCanyon")
+                              .setTabListener(this));
+    actionBar.addTab(actionBar.newTab()
+                              .setText("Lantis")
+                              .setTabListener(this));
+
     mAq = new AQuery(this);
-
-    ArrayList<Message> messages = new ArrayList<Message>();
-    messages.add(new Message.Builder()
-                     .network("StyleCube")
-                     .type(Type.TEXT)
-                     .content(new Content.Builder()
-                                  .room("#ShinyBlue")
-                                  .user("yuiogura")
-                                  .text("今こそ Step in! Shiny Blue!")
-                                  .build())
-                     .build());
-    messages.add(new Message.Builder()
-                     .network("StyleCube")
-                     .type(Type.TEXT)
-                     .content(new Content.Builder()
-                                  .room("#ShinyBlue")
-                                  .user("yuiogura")
-                                  .text("旅立つ鐘鳴らせ!")
-                                  .build())
-                     .build());
-
     mAq.id(R.id.chat_send_button).clicked(this, "sendButtonClicked");
-    mAq.id(R.id.chat_list_message).adapter(new MessageAdapter(messages));
     mAq.id(R.id.chat_input_message)
        .getEditText()
        .setOnEditorActionListener(this);
@@ -70,7 +73,7 @@ public class ChatActivity
 
   private void hideSoftInputFromWindow(final TextView textView) {
     InputMethodManager inputMethodManager =
-        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
     inputMethodManager.hideSoftInputFromWindow(
         textView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -106,47 +109,30 @@ public class ChatActivity
     mAq.getEditText().setText("");
   }
 
-  private class MessageAdapter extends BaseAdapter {
-    private List<Message> mMessages;
+  // ----------------------------
+  //  タブの管理
+  // ----------------------------
 
-    public MessageAdapter(final List<Message> messages) {
-      mMessages = messages;
+  @Override
+  public void onTabSelected(final ActionBar.Tab tab,
+                            final FragmentTransaction fragmentTransaction) {
+    int tabPosition = tab.getPosition();
+    if (mCurrentSelectedTabPosition == tabPosition) {
+      return;
     }
+    mCurrentSelectedTabPosition = tabPosition;
+    mFragment = Fragment.instantiate(this, ChatFragment.class.getName());
+    fragmentTransaction.add(R.id.chat_list_container, mFragment);
+  }
 
-    @Override
-    public int getCount() {
-      return mMessages.size();
-    }
+  @Override
+  public void onTabUnselected(final ActionBar.Tab tab,
+                              final FragmentTransaction fragmentTransaction) {
+    fragmentTransaction.remove(mFragment);
+  }
 
-    @Override
-    public Message getItem(final int i) {
-      return mMessages.get(i);
-    }
-
-    @Override
-    public long getItemId(final int i) {
-      return i;
-    }
-
-    @Override
-    public View getView(final int i,
-                        final View convertView,
-                        final ViewGroup viewGroup) {
-      View view = convertView;
-      if (view == null) {
-        LayoutInflater inflater = ChatActivity.this.getLayoutInflater();
-        view = inflater.inflate(R.layout.chat_message, null);
-      }
-
-      Message message = getItem(i);
-      Content content = message.getContent();
-
-      AQuery aq = new AQuery(view);
-      aq.id(R.id.chat_message_name).text(content.getUser().getName());
-      aq.id(R.id.chat_message_body).text(content.getText());
-      aq.id(R.id.chat_message_icon).image("https://si0.twimg.com/profile_images/3281723874/24d11457e1fbcebd96b9391d199ba207.png");
-
-      return view;
-    }
+  @Override
+  public void onTabReselected(final ActionBar.Tab tab,
+                              final FragmentTransaction fragmentTransaction) {
   }
 }
