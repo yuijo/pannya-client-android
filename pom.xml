@@ -2,7 +2,8 @@
 <project
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                        http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>jp.s5r</groupId>
@@ -32,7 +33,7 @@
       <groupId>net.vvakame</groupId>
       <artifactId>jsonpullparser-apt</artifactId>
       <version>1.6.1</version>
-      <scope>runtime</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>net.vvakame</groupId>
@@ -66,12 +67,38 @@
         </configuration>
         <extensions>true</extensions>
       </plugin>
+
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <configuration>
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
+        <version>2.0.5</version>
+        <executions>
+          <execution>
+            <id>process</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <phase>generate-sources</phase>
+            <configuration>
+              <outputDirectory>${generated.src}</outputDirectory>
+              <processors>
+                <processor>net.vvakame.util.jsonpullparser.factory.JsonAnnotationProcessor</processor>
+              </processors>
+              <options>
+                <JsonPullParserClassPostfix>${genclass.postfix}</JsonPullParserClassPostfix>
+              </options>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
@@ -80,36 +107,21 @@
           <target>1.6</target>
           <encoding>UTF-8</encoding>
         </configuration>
-        <executions>
-          <execution>
-            <id>with-apt</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <generatedSourcesDirectory>${generated.src}</generatedSourcesDirectory>
-              <proc>only</proc>
-              <compilerArgument>-AJsonPullParserClassPostfix=${genclass.postfix}</compilerArgument>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${generated.src}</directory>
               <includes>
-                <include>**</include>
+                <include>**/*.*</include>
               </includes>
-            </configuration>
-          </execution>
-          <execution>
-            <id>no-apt</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <proc>none</proc>
-              <includes>
-                <include>**</include>
-              </includes>
-            </configuration>
-          </execution>
-        </executions>
+            </fileset>
+          </filesets>
+        </configuration>
       </plugin>
     </plugins>
   </build>
