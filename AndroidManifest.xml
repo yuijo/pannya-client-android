@@ -8,7 +8,7 @@
   <uses-permission android:name="android.permission.INTERNET" />
 
   <!-- uses sdks -->
-  <uses-sdk android:minSdkVersion="10" />
+  <uses-sdk android:minSdkVersion="14" />
 
   <!-- application -->
   <application
