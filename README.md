@@ -1,5 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/yuijo/pannya-client-android.png?branch=master)](http://travis-ci.org/yuijo/pannya-client-android)
-# pyanna-client-android
+# pyanna-client-android [![Build Status](https://secure.travis-ci.org/yuijo/pannya-client-android.png?branch=master)](http://travis-ci.org/yuijo/pannya-client-android)
 
 TODO: Write an application description
 
